@@ -1,6 +1,7 @@
 package travel;
 
 import java.util.Scanner;
+import travel.config.AppConfig;
 import travel.model.*;
 import travel.printer.ConsoleItineraryPrinter;
 import travel.printer.ItineraryPrinter;
@@ -11,52 +12,56 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("   WELCOME TO TRIP ITINERARY BUILDER!");
+        AppConfig config = AppConfig.getInstance();
 
-        System.out.print("Enter your trip destination (e.g., Rome): ");
+        System.out.println("   TRIP BUILDER (Creational Patterns)");
+        System.out.println("   System Currency: " + config.getCurrency());
+
+        System.out.print("Enter destination (e.g., Rome): ");
         String destination = scanner.nextLine();
 
-        Trip trip = new Trip(destination);
+
+        TripBuilder builder = new TripBuilder(destination);
         boolean running = true;
 
         while (running) {
-            System.out.println("\nWhat would you like to add to your itinerary?");
-            System.out.println("1. Transportation (flight, train, etc.)");
-            System.out.println("2. Accommodation (hotel, apartment)");
-            System.out.println("3. Activity (guided tour, museum)");
-            System.out.println("4. Finish and print itinerary");
-            System.out.print("Select an option (1-4): ");
+            System.out.println("\nAdd item to itinerary:");
+            System.out.println("1. Transportation (via Factory)");
+            System.out.println("2. Accommodation (via Factory)");
+            System.out.println("3. Activity (via Factory)");
+            System.out.println("4. Finish and Build Trip");
+            System.out.print("Select option (1-4): ");
 
             String choice = scanner.nextLine();
 
             switch (choice) {
                 case "1":
-                    System.out.print("Enter transport type (e.g., Flight Chisinau - Rome): ");
-                    String transportType = scanner.nextLine();
-                    System.out.print("Enter ticket price ($): ");
-                    double ticketPrice = Double.parseDouble(scanner.nextLine());
-                    trip.addItem(new Transportation(transportType, ticketPrice));
-                    System.out.println("Transportation added successfully!");
+                    System.out.print("Transport type: ");
+                    String type = scanner.nextLine();
+                    System.out.print("Price: ");
+                    double price = Double.parseDouble(scanner.nextLine());
+                    builder.addTransportation(type, price);
+                    System.out.println("-> Transportation added via Builder & Factory!");
                     break;
 
                 case "2":
-                    System.out.print("Enter hotel/accommodation name: ");
-                    String hotelName = scanner.nextLine();
-                    System.out.print("Enter price per night ($): ");
-                    double pricePerNight = Double.parseDouble(scanner.nextLine());
-                    System.out.print("Enter number of nights: ");
+                    System.out.print("Hotel name: ");
+                    String hotel = scanner.nextLine();
+                    System.out.print("Price per night: ");
+                    double nightPrice = Double.parseDouble(scanner.nextLine());
+                    System.out.print("Nights count: ");
                     int nights = Integer.parseInt(scanner.nextLine());
-                    trip.addItem(new Accommodation(hotelName, pricePerNight, nights));
-                    System.out.println("Accommodation added successfully!");
+                    builder.addAccommodation(hotel, nightPrice, nights);
+                    System.out.println("-> Accommodation added via Builder & Factory!");
                     break;
 
                 case "3":
-                    System.out.print("Enter activity name: ");
-                    String activityName = scanner.nextLine();
-                    System.out.print("Enter entry fee ($): ");
-                    double entryFee = Double.parseDouble(scanner.nextLine());
-                    trip.addItem(new Activity(activityName, entryFee));
-                    System.out.println("Activity added successfully!");
+                    System.out.print("Activity name: ");
+                    String activity = scanner.nextLine();
+                    System.out.print("Entry fee: ");
+                    double fee = Double.parseDouble(scanner.nextLine());
+                    builder.addActivity(activity, fee);
+                    System.out.println("-> Activity added via Builder & Factory!");
                     break;
 
                 case "4":
@@ -64,15 +69,18 @@ public class Main {
                     break;
 
                 default:
-                    System.out.println("Invalid choice. Please enter a number between 1 and 4.");
+                    System.out.println("Invalid choice. Enter 1-4.");
             }
         }
+
+
+        Trip trip = builder.build();
 
         ItineraryPrinter printer = new ConsoleItineraryPrinter();
         CostCalculator calculator = new CostCalculator();
         TripService tripService = new TripService(printer, calculator);
 
-        System.out.println("\nGenerating your itinerary summary...");
+        System.out.println("\nBuilding itinerary trip...");
         tripService.displayTripSummary(trip);
 
         scanner.close();
