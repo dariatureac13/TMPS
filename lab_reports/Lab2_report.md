@@ -39,6 +39,8 @@ Architecture & Benefits:
 
 * Centralizes system-wide configuration data (currency, tax rate) to avoid inconsistent application state.
 
+![img_1.png](img_1.png)
+
 #### Code Snippet
 ```java
 package travel.config;
@@ -79,6 +81,7 @@ Architecture & Benefits:
 
 * Adheres strictly to the Open/Closed Principle (OCP): Adding new expense types requires creating a new factory without modifying existing creation logic.
 
+![img_2.png](img_2.png)
 #### Code Snippets:
 
 **Creator Interface**
@@ -119,6 +122,7 @@ Architecture & Benefits:
 
 * Provides a clean, readable Fluent Interface (`builder.addTransportation(...).addAccommodation(...).build()`).
 
+![img.png](img.png)
 
 #### Code Snippet:
 ```java

@@ -26,9 +26,9 @@ public class Main {
 
         while (running) {
             System.out.println("\nAdd item to itinerary:");
-            System.out.println("1. Transportation (via Factory)");
-            System.out.println("2. Accommodation (via Factory)");
-            System.out.println("3. Activity (via Factory)");
+            System.out.println("1. Transportation");
+            System.out.println("2. Accommodation");
+            System.out.println("3. Activity");
             System.out.println("4. Finish and Build Trip");
             System.out.print("Select option (1-4): ");
 
@@ -41,7 +41,7 @@ public class Main {
                     System.out.print("Price: ");
                     double price = Double.parseDouble(scanner.nextLine());
                     builder.addTransportation(type, price);
-                    System.out.println("-> Transportation added via Builder & Factory!");
+                    System.out.println("-> Transportation added ");
                     break;
 
                 case "2":
@@ -52,7 +52,7 @@ public class Main {
                     System.out.print("Nights count: ");
                     int nights = Integer.parseInt(scanner.nextLine());
                     builder.addAccommodation(hotel, nightPrice, nights);
-                    System.out.println("-> Accommodation added via Builder & Factory!");
+                    System.out.println("-> Accommodation added ");
                     break;
 
                 case "3":
@@ -61,7 +61,7 @@ public class Main {
                     System.out.print("Entry fee: ");
                     double fee = Double.parseDouble(scanner.nextLine());
                     builder.addActivity(activity, fee);
-                    System.out.println("-> Activity added via Builder & Factory!");
+                    System.out.println("-> Activity added ");
                     break;
 
                 case "4":
