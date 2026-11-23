@@ -204,6 +204,9 @@ public Trip createWeekendCityTrip(String destination, int nights, boolean withIn
 
 * `facadeAppliesInsuranceAndPriorityDecoratorsWhenRequested` — verifies that enabling insurance and priority options wraps the resulting `Trip` root component with both decorators and includes their descriptions.
 
+## Passed unit tests
+
+![img_4.png](img_4.png)
 
 ## 4. Conclusions
    
